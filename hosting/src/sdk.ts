@@ -30,8 +30,6 @@ export async function generateRandomUser(): Promise<void> {
       avatar: userData.picture.large
     }
     const res = await firebaseFunctions.httpsCallable("generateRandomUser")(payload);
-    console.log(res);
-    
   } catch (error) {
     console.log(error)
   }
@@ -46,8 +44,7 @@ export interface UserData {
 // Get user by specific UUID to check if its a valid one
 export async function getUserByUUID(uuid: string): Promise<null | UserData> {
   try {
-    const res = await firebaseFunctions.httpsCallable("getUserByUUID")({ uuid: uuid });
-    console.log(res);
+    const res = await firebaseFunctions.httpsCallable("getUserByUUID")({ uuid });
     return res.data
   } catch (error) {
     console.log(error)
@@ -59,7 +56,6 @@ export async function getUserByUUID(uuid: string): Promise<null | UserData> {
 export async function getAllUsers(): Promise<UserData[]> {
   try {
     const res = await firebaseFunctions.httpsCallable("getAllUsers")({});
-    console.log(res);
     return res.data
   } catch (error) {
     console.log(error)
@@ -71,10 +67,44 @@ export async function getAllUsers(): Promise<UserData[]> {
 export async function createNewAppointment(payload): Promise<UserData[]> {
   try {
     const res = await firebaseFunctions.httpsCallable("createNewAppointment")(payload);
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+  return []
+}
+
+// Get all appointments assiocated assigned to a UUID
+export interface AppointmenObject {
+  accepted: boolean;
+  appointmentWith: string;
+  date: string;
+  description: string;
+  name: string;
+  pending: boolean;
+  phoneNumber: string;
+  time: string;
+  appointmentId: string;
+}
+export async function getAppointmentsByUUID(uuid: string): Promise<AppointmenObject[]> {
+  try {
+    const res = await firebaseFunctions.httpsCallable("getAppointmentsByUUID")({ uuid });
     console.log(res);
     return res.data
   } catch (error) {
     console.log(error)
   }
   return []
+}
+
+// Set appointment status either accepted/denied
+export async function setAppointmentStatusById(id: string, accepted: boolean): Promise<boolean> {
+  try {
+    const res = await firebaseFunctions.httpsCallable("setAppointmentStatusById")({ appointmentId: id, accepted });
+    console.log(res);
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+  return false
 }

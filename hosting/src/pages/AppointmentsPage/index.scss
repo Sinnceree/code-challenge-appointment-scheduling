@@ -1,0 +1,43 @@
+@import "../../assets/css/main.scss";
+
+.appointment-page {
+  
+  .appointments-list {
+    display: flex;
+    flex-direction: column;
+
+    .appointment {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      padding: 1rem;
+      background-color: #fff;
+      justify-content: space-between;
+
+      .name {
+        margin: 0;
+        padding: 0;
+        font-size: 15px;
+        flex: auto;
+        text-align: center;
+      }
+
+      span {
+        color: $textBlue;
+      }
+
+      .deny {
+        background-color: red;
+      }
+
+      .actions {
+        display: flex;
+        width: 230px;
+        justify-content: space-between;
+      }
+    }
+
+
+  }
+}

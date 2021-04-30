@@ -27,8 +27,26 @@ export const getAllUsers = functions.https.onCall(async (data, context) => {
 // Create a new appointment document
 export const createNewAppointment = functions.https.onCall(async (data, context) => {
   const appointmentId = admin.firestore().collection("appointments").doc().id
-  await firestoreDB.collection("appointments").doc(appointmentId).set(data);
+  await firestoreDB.collection("appointments").doc(appointmentId).set({
+    ...data,
+    appointmentId: appointmentId,
+  });
   const appointment = await firestoreDB.collection("appointments").doc(appointmentId).get()
   return appointment.data();
+});
+
+// Get all appointments assiocated assigned to a UUID
+export const getAppointmentsByUUID = functions.https.onCall(async (data, context) => {
+  const snapshot = await firestoreDB.collection("appointments").where("appointmentWith", "==", data.uuid).get()
+  return snapshot.docs.map(doc => doc.data());
+});
+
+// Set appointment status either accepted/denied
+export const setAppointmentStatusById = functions.https.onCall(async (data, context) => {
+  await firestoreDB.collection("appointments").doc(data.appointmentId).update({
+    pending: false,
+    accepted: data.accepted,
+  })
+  return await (await firestoreDB.collection("appointments").doc(data.appointmentId).get()).data()
 });
 
