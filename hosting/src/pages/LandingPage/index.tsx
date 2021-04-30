@@ -14,8 +14,15 @@ const LandingPage = () => {
     setUsers(users);
   }
 
+  // Redirect user to schedule route
   const handleScheduleAppointment = (id: string) => {
     history.push(`/schedule/${id}`);
+  }
+
+  // Redirect user to appointments route
+  const handleViewAppointment = (id: string) => {
+    history.push(`/appointments/${id}`);
+    console.log("hello?")
   }
 
   // Used to trigger fetching users function to update state
@@ -33,7 +40,7 @@ const LandingPage = () => {
             <img className="avatar" src={user.avatar} alt="user-avatar" />
             <h1 className="name">{user.name}</h1>
             <div className="actions">
-              <button className="blue-btn">View Appointments</button>
+              <button className="blue-btn" onClick={() => handleViewAppointment(user.uuid)}>View Appointments</button>
               <button className="blue-btn" onClick={() => handleScheduleAppointment(user.uuid)}>Schedule Appointment</button>
             </div>
 

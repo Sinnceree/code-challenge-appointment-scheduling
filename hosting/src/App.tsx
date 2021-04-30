@@ -4,6 +4,7 @@ import LandingPage from "./pages/LandingPage";
 import UserPage from "./pages/UserPage";
 import "react-datepicker/dist/react-datepicker.css";
 import "./assets/css/main.scss"
+import AppointmentsPage from "./pages/AppointmentsPage";
 // import { generateRandomUser } from './sdk';
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/schedule/:userId" component={UserPage} />
+        <Route exact path="/appointments/:userId" component={AppointmentsPage} />
       </Switch>
     </Router>
   );

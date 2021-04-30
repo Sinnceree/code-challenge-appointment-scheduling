@@ -88,6 +88,7 @@ const AppointmentBox = () => {
   // On mount of component lets check if the userId provided is a valid user
   useEffect(() => {
     checkIfValidUser()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   
