@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import TimePicker from "../TimePicker";
 
 const AppointmentBox = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -22,6 +23,7 @@ const AppointmentBox = () => {
         selectsRange
         inline
       />
+      <TimePicker />
       </div>
       
     </div>
