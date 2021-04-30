@@ -5,9 +5,9 @@ import UserPage from "./pages/UserPage";
 import "react-datepicker/dist/react-datepicker.css";
 import "./assets/css/main.scss"
 import AppointmentsPage from "./pages/AppointmentsPage";
-// import { generateRandomUser } from './sdk';
 
 const App = () => {
+
   return (
     <Router>
       <Switch>

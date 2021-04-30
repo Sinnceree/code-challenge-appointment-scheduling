@@ -41,6 +41,7 @@ const AppointmentsPage = () => {
       <div className="userinfo">
         <img src={user?.avatar} alt="user-img" />
         <h1 className="heading"><span>{user?.name}</span>'s appointments list</h1>
+        <button className="blue-btn" onClick={() => history.push("/")}>Go Home</button>
       </div>
 
       <div className="appointments-list">
