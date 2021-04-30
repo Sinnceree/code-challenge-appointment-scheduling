@@ -1,0 +1,82 @@
+@import "../../assets/css/main.scss";
+
+
+.appointment-container {
+  width: 60%;
+  display: flex;
+  padding: 1rem;
+  border-radius: 10px;
+  flex-direction: column;
+  background-color: $white;
+
+  .header {
+    padding: 1rem;
+    font-weight: 600;
+    color: $darkBlue;
+    border-bottom: 1px solid #d9edff;
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    justify-content: space-between;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 2rem;
+    margin-top: 0;
+  }
+
+  .blue-btn {
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    width: 100px;
+    border-radius: 50px;
+    padding: 10px;
+    justify-content: center;
+    background-color: $highlightBlue;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0px 0px 4px 1px #67a6dc;
+    }
+  }
+
+  .appointment-info {
+    display: flex;
+    width: 100%;
+    margin-bottom: 1rem;
+    flex-direction: column;
+
+    input {
+      border: 1px solid $darkBlue;
+      color: $highlightBlue;
+      padding: 10px;
+      width: 200px;
+    }
+
+    textarea {
+      border: 1px solid $darkBlue;
+      color: $highlightBlue;
+      padding: 10px;
+    }
+
+    label {
+      color: $darkBlue;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  }
+
+  .error-text {
+    color: red;
+    width: 100%;
+    font-size: 14px;
+    text-align: center;
+  }
+}
