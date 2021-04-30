@@ -4,9 +4,10 @@ import TimePicker from "../TimePicker";
 
 const AppointmentBox = () => {
   const [date, setDate] = useState(new Date());
-  const onChange = date => {
-    setDate(date)
-  };
+  const onChangeDate = date => setDate(date);
+
+  const [time, setTime] = useState<string | null>(null);
+  
   
   return (
     <div className="appointment-container">
@@ -14,15 +15,15 @@ const AppointmentBox = () => {
       <div className="content">
         <DatePicker
           selected={date}
-          onChange={onChange}
+          onChange={onChangeDate}
           inline/>
-        <TimePicker />
+        <TimePicker selected={time} onChange={setTime} />
       </div>
-      
+
       <div className="buttons">
         <button className="blue-btn">Next</button>
       </div>
-      
+
     </div>
   );
 }

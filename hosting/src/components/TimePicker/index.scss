@@ -43,6 +43,12 @@
       box-shadow: 0px 0px 4px 1px #67a6dc;
 
     }
+  }
 
+  .selected {
+    cursor: pointer;
+    color: $white;
+    background-color: $highlightBlue;
+    box-shadow: 0px 0px 4px 1px #67a6dc;
   }
 }
