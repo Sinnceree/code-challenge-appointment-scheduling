@@ -4,7 +4,7 @@ import LandingPage from "./pages/LandingPage";
 import UserPage from "./pages/UserPage";
 import "react-datepicker/dist/react-datepicker.css";
 import "./assets/css/main.scss"
-// import { helloWorld } from './sdk';
+// import { generateRandomUser } from './sdk';
 
 const App = () => {
   return (

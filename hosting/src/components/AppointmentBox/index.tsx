@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import TimePicker from "../TimePicker";
 import { useParams } from "react-router-dom";
 import "./index.scss"
+import { getUserByUUID } from "../../sdk";
 
 const AppointmentBox = () => {
   const { userId } = useParams()
   const [infoStep, setInfoStep] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Date related state
   const [date, setDate] = useState(new Date());
@@ -42,8 +44,21 @@ const AppointmentBox = () => {
     if (description === "") return setError("Please provide a description");
     
     console.log("Submit info" , userId)
+    getUserByUUID(userId);
     setError(null);
   }
+
+  const checkIfValidUser = async () => {
+    const doesExist = await getUserByUUID(userId);
+    if (!doesExist) {
+      console.log("user doesnt exist lets redirect back to home")
+    }
+  }
+
+  // On mount of component lets check if the userId provided is a valid user
+  useEffect(() => {
+    checkIfValidUser()
+  }, []);
   
   
   return (

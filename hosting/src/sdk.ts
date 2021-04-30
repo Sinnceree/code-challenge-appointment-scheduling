@@ -15,7 +15,41 @@ const app = firebase.initializeApp(firebaseConfig);
 const firebaseFunctions = app.functions();
 firebaseFunctions.useEmulator('localhost', 5001);
 
-export async function helloWorld(): Promise<void> {
-  const res = await firebaseFunctions.httpsCallable('helloWorld')({});
-  console.log(res);
+// Generate a random user for testing without auth
+export async function generateRandomUser(): Promise<void> {
+  try {
+    // Let me fetch online api to generate a random fake user
+    const requestRaw = await fetch("https://randomuser.me/api/");
+    const data = await requestRaw.json();
+    const userData = data.results[0];
+
+    const payload = {
+      email: userData.email,
+      name: `${userData.name.first} ${userData.name.last}`,
+      uuid: userData.login.uuid,
+      avatar: userData.picture.large
+    }
+    const res = await firebaseFunctions.httpsCallable("generateRandomUser")(payload);
+    console.log(res);
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+interface UserData {
+  avatar: string;
+  email: string;
+  name: string;
+  uuid: string;
+}
+export async function getUserByUUID(uuid: string): Promise<null | UserData> {
+  try {
+    const res = await firebaseFunctions.httpsCallable("getUserByUUID")({ uuid: uuid });
+    console.log(res);
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+  return null
 }

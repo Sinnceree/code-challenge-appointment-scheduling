@@ -5,11 +5,16 @@ admin.initializeApp();
 
 const firestoreDB = admin.firestore();
 
-export const helloWorld = functions.https.onCall(async (data, context) => {
-  await firestoreDB.collection('foo').doc('bar').set({
-    test: `this is a test`,
-  });
-
-  const bar = await firestoreDB.collection('foo').doc('bar')
+// Used to add new random generated user record for testing without auth
+export const generateRandomUser = functions.https.onCall(async (data, context) => {
+  await firestoreDB.collection("users").doc(data.uuid).set(data);
+  const bar = await firestoreDB.collection('users').doc(data.uuid)
   return bar;
 });
+
+// Gets a user record by uuid
+export const getUserByUUID = functions.https.onCall(async (data, context) => {
+  const user = await firestoreDB.collection('users').doc(data.uuid).get()
+  return user.data();
+});
+
