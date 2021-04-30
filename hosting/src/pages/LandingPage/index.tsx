@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getAllUsers, UserData } from "../../sdk";
+import { useHistory } from "react-router-dom";
+
 import "./index.scss";
 
 const LandingPage = () => {
+  const history = useHistory();
   const [users, setUsers] = useState<UserData[]>([]);
 
   // Fetch list of users from cloud function
@@ -11,9 +14,13 @@ const LandingPage = () => {
     setUsers(users);
   }
 
+  const handleScheduleAppointment = (id: string) => {
+    history.push(`/schedule/${id}`);
+  }
+
   // Used to trigger fetching users function to update state
   useEffect(() => {
-    fetchUsers()
+    fetchUsers();
   }, []);
 
   return (
@@ -27,7 +34,7 @@ const LandingPage = () => {
             <h1 className="name">{user.name}</h1>
             <div className="actions">
               <button className="blue-btn">View Appointments</button>
-              <button className="blue-btn">Schedule Appointment</button>
+              <button className="blue-btn" onClick={() => handleScheduleAppointment(user.uuid)}>Schedule Appointment</button>
             </div>
 
           </div>
