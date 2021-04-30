@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import TimePicker from "../TimePicker";
 import { useParams } from "react-router-dom";
-import { getUserByUUID, createNewAppointment } from "../../sdk";
+import { getUserByUUID, createNewAppointment, UserData } from "../../sdk";
 import { useHistory } from "react-router-dom";
+import AppointmentForm from "../AppointmentForm"
 
 import "./index.scss"
+import CompletePrompt from "../CompletePrompt";
 
 const AppointmentBox = () => {
   const history = useHistory();
   const { userId } = useParams()
+  const [user, setUser] = useState<UserData | null>(null);
   const [infoStep, setInfoStep] = useState(false);
+  const [completed, setCompleted] = useState(false);
 
   // Date related state
   const [date, setDate] = useState(new Date());
@@ -30,6 +34,11 @@ const AppointmentBox = () => {
   const handleNextStep = () => {
     if (!time) {
       return console.log("Please select a time");
+    }
+
+    // Check if we completed form so we can go back home
+    if (completed) {
+      return history.push("/")
     }
 
     // If infostep is already true that means we want to submit the form
@@ -62,16 +71,18 @@ const AppointmentBox = () => {
     try {
       await createNewAppointment(payload)
       setError(null);
+      setCompleted(true);
     } catch (error) {
       setError(error.message)
     }
   }
 
   const checkIfValidUser = async () => {
-    const doesExist = await getUserByUUID(userId);
-    if (!doesExist) {
+    const userData = await getUserByUUID(userId);
+    if (!userData) {
       history.push("/")
     }
+    setUser(userData)
   }
 
   // On mount of component lets check if the userId provided is a valid user
@@ -83,8 +94,7 @@ const AppointmentBox = () => {
   return (
     <div className="appointment-container">
       <div className="header">Make your next appointment</div>
-
-      {!infoStep &&
+      {!completed && !infoStep &&
         <div className="content">
           <DatePicker
             selected={date}
@@ -94,22 +104,22 @@ const AppointmentBox = () => {
         </div>
       }
 
-      {infoStep && 
-        <div className="content">
-          <form className="appointment-info">
-            <label>Fullname</label>
-            <input placeholder="Enter Fullname" type="text" value={name} onChange={(e) => setName(e.target.value)} />
-            <label>Phone Number</label>
-            <input placeholder="Enter Phonenumber" type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-            <label>Description</label>
-            <textarea placeholder="Brief description for appointment" value={description} onChange={(e) => setDescription(e.target.value)} />
-          </form>
-          {error && <p className="error-text">{error}</p> }
-        </div>
+      {!completed && infoStep && 
+        <AppointmentForm 
+          name={name} 
+          phoneNumber={phoneNumber} 
+          setName={setName}
+          description={description} 
+          setDescription={setDescription} 
+          setPhoneNumber={setPhoneNumber}
+          error={error}
+        />
       }
 
+      {completed && <CompletePrompt user={user} />}
+
       <div className="buttons">
-        <button className="blue-btn" onClick={handleNextStep}>Next</button>
+        <button className="blue-btn" onClick={handleNextStep}>{completed ? "Back Home" : "Next"}</button>
       </div> 
 
     </div>

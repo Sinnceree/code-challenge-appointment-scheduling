@@ -62,4 +62,14 @@
     font-size: 14px;
     text-align: center;
   }
+
+  .completed {
+    font-size: 20px;
+    margin-top: 1rem;
+    text-align: center;
+
+    span {
+      color: $highlightBlue;
+    }
+  }
 }
