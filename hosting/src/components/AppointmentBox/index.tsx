@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import TimePicker from "../TimePicker";
 import { useParams } from "react-router-dom";
-import { getUserByUUID } from "../../sdk";
+import { getUserByUUID, createNewAppointment } from "../../sdk";
 import { useHistory } from "react-router-dom";
 
 import "./index.scss"
@@ -11,7 +11,6 @@ const AppointmentBox = () => {
   const history = useHistory();
   const { userId } = useParams()
   const [infoStep, setInfoStep] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   // Date related state
   const [date, setDate] = useState(new Date());
@@ -41,14 +40,31 @@ const AppointmentBox = () => {
     setInfoStep(true);
   }
 
-  const submitAppointment = () => {
+  // Check if all inputs have a value
+  // Then calls firebase cloud function to create new appointment
+  // Entry in the firestore db
+  const submitAppointment = async () => {
     if (name === "") return setError("Please provide a name");
     if (phoneNumber === "") return setError("Please provide a phone number");
     if (description === "") return setError("Please provide a description");
     
-    console.log("Submit info" , userId)
-    getUserByUUID(userId);
-    setError(null);
+    const payload = {
+      name: name,
+      time: time,
+      date: date.toDateString(),
+      pending: true,
+      accepted: false,
+      appointmentWith: userId,
+      phoneNumber: phoneNumber,
+      description: description,
+    }
+
+    try {
+      await createNewAppointment(payload)
+      setError(null);
+    } catch (error) {
+      setError(error.message)
+    }
   }
 
   const checkIfValidUser = async () => {

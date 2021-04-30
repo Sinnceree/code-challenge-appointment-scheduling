@@ -66,3 +66,15 @@ export async function getAllUsers(): Promise<UserData[]> {
   }
   return []
 }
+
+// Create a new appointment document
+export async function createNewAppointment(payload): Promise<UserData[]> {
+  try {
+    const res = await firebaseFunctions.httpsCallable("createNewAppointment")(payload);
+    console.log(res);
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+  return []
+}
