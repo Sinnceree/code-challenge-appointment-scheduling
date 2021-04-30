@@ -9,11 +9,12 @@ body, #root, html {
 $white: #fff;
 $darkBlue: #1b4970;
 $highlightBlue: #4381b5;
+$textBlue: #85badb;
 
 .appointment-container {
   width: 60%;
   display: flex;
-  height: 400px;
+  height: 430px;
   border-radius: 10px;
   flex-direction: column;
   background-color: $white;
@@ -23,5 +24,44 @@ $highlightBlue: #4381b5;
     font-weight: 600;
     color: $darkBlue;
     border-bottom: 1px solid #d9edff;
+  }
+
+  .content {
+    display: flex;
+    margin-top: 1.5rem;
+    justify-content: space-between;
+  }
+}
+
+.react-datepicker {
+  width: 430px;
+  height: 340px;
+  border: none;
+  border-radius: 10px;
+
+  .react-datepicker__month-container {
+    width: 430px;
+    height: 340px;
+  }
+
+  .react-datepicker__day-names {
+    display: none;
+  }
+
+  .react-datepicker__header:not(.react-datepicker__header--has-time-select) {
+    padding: 10px;
+    border-top-right-radius: 0.3rem;
+    background: none;
+    border: none;
+  }
+
+  .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name{
+    color: $textBlue;
+    width: 2.7rem;
+    line-height: 2.7rem;
+  }
+  
+  .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
+    color: #8e8e8e;
   }
 }

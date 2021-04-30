@@ -1,0 +1,48 @@
+@import "../../assets/css/main.scss";
+
+.timepicker-box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  .timepicker-column {
+    flex: auto;
+    padding: 15px;
+  }
+
+  .selected-time {
+    margin: 0;
+    padding: 0;
+    color: #8e8e8e;
+    font-size: 0.944rem;
+    text-align: center;
+    padding: 10px;
+  }
+  .times {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timepicker-block {
+    display: flex;
+    margin-top: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    color: $textBlue;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: ease-in 0.2s;
+    
+    &:hover {
+      cursor: pointer;
+      color: $white;
+      background-color: $highlightBlue;
+      box-shadow: 0px 0px 4px 1px #67a6dc;
+
+    }
+
+  }
+}

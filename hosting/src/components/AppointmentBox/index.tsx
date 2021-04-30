@@ -3,12 +3,9 @@ import DatePicker from "react-datepicker";
 import TimePicker from "../TimePicker";
 
 const AppointmentBox = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
-  const onChange = dates => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
+  const [date, setDate] = useState(new Date());
+  const onChange = date => {
+    setDate(date)
   };
   
   return (
@@ -16,15 +13,12 @@ const AppointmentBox = () => {
       <div className="header">Make your next appointment</div>
       <div className="content">
         <DatePicker
-        selected={startDate}
-        onChange={onChange}
-        startDate={startDate}
-        endDate={endDate}
-        selectsRange
-        inline
-      />
-      <TimePicker />
+          selected={date}
+          onChange={onChange}
+          inline/>
+        <TimePicker />
       </div>
+      <button className="blue-btn">Next</button>
       
     </div>
   );

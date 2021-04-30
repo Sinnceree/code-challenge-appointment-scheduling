@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.scss"
 
 const TimePicker = () => {
   const times = [
@@ -12,13 +13,16 @@ const TimePicker = () => {
   
   return (
     <div className="timepicker-box">
-      {times.map((column: string[]) => (
-        <div className="timepicker-column">
-          {column.map((time: string) => (
-            <div className="timepicker-block">{time}</div>
-          ))}
-        </div>
-      ))}
+      <h1 className="selected-time">9am-10am</h1>
+      <div className="times">
+        {times.map((column: string[]) => (
+          <div className="timepicker-column">
+            {column.map((time: string) => (
+              <div className="timepicker-block">{time}</div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
