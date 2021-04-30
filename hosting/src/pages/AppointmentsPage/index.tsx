@@ -7,44 +7,41 @@ import "./index.scss";
 
 const AppointmentsPage = () => {
   const history = useHistory();
-  const { userId } = useParams()
+  const { userId } = useParams();
   const [user, setUser] = useState<UserData | null>(null);
   const [appointments, setAppointments] = useState<AppointmenObject[]>([]);
 
   const checkIfValidUser = async () => {
     const userData = await getUserByUUID(userId);
-    if (!userData) {
-      history.push("/")
-    }
-    setUser(userData)
+    if (!userData) history.push("/");
+    setUser(userData);
   }
 
   // Fetch all the appointments assigned to this UUID
   const getAppointments = async () => {
     const data = await getAppointmentsByUUID(userId);
-    setAppointments(data)
+    setAppointments(data);
   }
 
   const handleChangingStatus = async (id: string, accepted: boolean) => {
     const updated = await setAppointmentStatusById(id, accepted);
-    if (updated) {
-      getAppointments(); // If we successfully updated the appointment lets refetch the list of them to display
-    }
+    if (updated) getAppointments(); // If we successfully updated the appointment lets refetch the list of them to display
   }
 
   // On mount of component lets check if the userId provided is a valid user
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     checkIfValidUser();
-    if (userId) {
-      getAppointments()
-    }
+    if (userId) getAppointments();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="appointment-page">
-      {user?.name} Appointments
+      <div className="userinfo">
+        <img src={user?.avatar} alt="user-img" />
+        <h1 className="heading"><span>{user?.name}</span>'s appointments list</h1>
+      </div>
 
       <div className="appointments-list">
 

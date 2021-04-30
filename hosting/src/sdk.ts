@@ -29,7 +29,7 @@ export async function generateRandomUser(): Promise<void> {
       uuid: userData.login.uuid,
       avatar: userData.picture.large
     }
-    const res = await firebaseFunctions.httpsCallable("generateRandomUser")(payload);
+    await firebaseFunctions.httpsCallable("generateRandomUser")(payload);
   } catch (error) {
     console.log(error)
   }
