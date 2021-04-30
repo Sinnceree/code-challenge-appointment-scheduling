@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import TimePicker from "../TimePicker";
 import { useParams } from "react-router-dom";
-import "./index.scss"
 import { getUserByUUID } from "../../sdk";
+import { useHistory } from "react-router-dom";
+
+import "./index.scss"
 
 const AppointmentBox = () => {
+  const history = useHistory();
   const { userId } = useParams()
   const [infoStep, setInfoStep] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -51,7 +54,7 @@ const AppointmentBox = () => {
   const checkIfValidUser = async () => {
     const doesExist = await getUserByUUID(userId);
     if (!doesExist) {
-      console.log("user doesnt exist lets redirect back to home")
+      history.push("/")
     }
   }
 

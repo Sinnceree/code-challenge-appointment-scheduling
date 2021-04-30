@@ -37,12 +37,13 @@ export async function generateRandomUser(): Promise<void> {
   }
 }
 
-interface UserData {
+export interface UserData {
   avatar: string;
   email: string;
   name: string;
   uuid: string;
 }
+// Get user by specific UUID to check if its a valid one
 export async function getUserByUUID(uuid: string): Promise<null | UserData> {
   try {
     const res = await firebaseFunctions.httpsCallable("getUserByUUID")({ uuid: uuid });
@@ -52,4 +53,16 @@ export async function getUserByUUID(uuid: string): Promise<null | UserData> {
     console.log(error)
   }
   return null
+}
+
+// gets all users to show on frontend
+export async function getAllUsers(): Promise<UserData[]> {
+  try {
+    const res = await firebaseFunctions.httpsCallable("getAllUsers")({});
+    console.log(res);
+    return res.data
+  } catch (error) {
+    console.log(error)
+  }
+  return []
 }
