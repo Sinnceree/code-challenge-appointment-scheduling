@@ -15,10 +15,10 @@ const TimePicker = () => {
     <div className="timepicker-box">
       <h1 className="selected-time">9am-10am</h1>
       <div className="times">
-        {times.map((column: string[]) => (
-          <div className="timepicker-column">
+        {times.map((column: string[], index: number) => (
+          <div className="timepicker-column" key={index}>
             {column.map((time: string) => (
-              <div className="timepicker-block">{time}</div>
+              <div className="timepicker-block" key={time}>{time}</div>
             ))}
           </div>
         ))}

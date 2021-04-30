@@ -18,7 +18,10 @@ const AppointmentBox = () => {
           inline/>
         <TimePicker />
       </div>
-      <button className="blue-btn">Next</button>
+      
+      <div className="buttons">
+        <button className="blue-btn">Next</button>
+      </div>
       
     </div>
   );
