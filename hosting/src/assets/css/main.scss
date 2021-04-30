@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+body, #root, html {
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background-color: lightgray;
+}
+
+$white: #fff;
+$darkBlue: #1b4970;
+$highlightBlue: #4381b5;
+
+.appointment-container {
+  width: 60%;
+  display: flex;
+  height: 400px;
+  border-radius: 10px;
+  flex-direction: column;
+  background-color: $white;
+
+  .header {
+    padding: 1rem;
+    font-weight: 600;
+    color: $darkBlue;
+    border-bottom: 1px solid #d9edff;
+  }
+}

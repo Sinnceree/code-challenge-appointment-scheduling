@@ -1,12 +1,19 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import LandingPage from "./pages/LandingPage";
+import UserPage from "./pages/UserPage";
+import "react-datepicker/dist/react-datepicker.css";
+import "./assets/css/main.scss"
 // import { helloWorld } from './sdk';
 
 const App = () => {
-
   return (
-    <div className="main-container">
-      Hello
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/user/:userId" component={UserPage} />
+      </Switch>
+    </Router>
   );
 }
 
